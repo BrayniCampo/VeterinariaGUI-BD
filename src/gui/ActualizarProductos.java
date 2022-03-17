@@ -37,7 +37,7 @@ public class ActualizarProductos extends JDialog implements ActionListener{
 		setSize( 350, 289);
 		setLocationRelativeTo(null);
 		iniciarComponentes();
-		setTitle("Gesti�n de consultar");
+		setTitle("Gestión de consultar");
 		
 	}
 	
@@ -91,7 +91,7 @@ public class ActualizarProductos extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnBuscar) {
 			ProductoVo miProducto=miCoordinador.obtenerProducto(Long.parseLong(textField .getText()));
-			
+			System.out.println(miProducto);
 			if(miProducto!=null) {
 				textNombre.setText(miProducto.getNombreProducto());
 				textPrecio.setText(miProducto.getPrecioProducto()+"");
@@ -102,10 +102,13 @@ public class ActualizarProductos extends JDialog implements ActionListener{
 		}
 		if(e.getSource()==btnActualizar) {
 			ProductoVo miProducto=new ProductoVo();
+			miProducto.setIdProducto(Long.parseLong(textField.getText()))
 			miProducto.setNombreProducto(textNombre.getText());
 			miProducto.setPrecioProducto(Double.parseDouble(textPrecio.getText()));
 			
+			System.out.println(miProducto);
 			String res=miCoordinador.actualizarProductos(miProducto);
+			System.out.println(res);
 		}
 		
 	}

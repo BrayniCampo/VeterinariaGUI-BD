@@ -138,7 +138,11 @@ public class ProductoDao {
 		PreparedStatement preStatement=null;
 		
 		connection=conexion.getConnection();
-		String consulta="UPDATE producto"+"SET nombreProducto=?,"+"precioProducto=?"+"where idProducto=?";
+		String consulta="UPDATE producto SET"
+		+ "nombreProducto=?,"
+		+"precioProducto=?"
+		+"where idProducto=?";
+		
 		try {
 			preStatement=connection.prepareStatement(consulta);
 			preStatement.setString(1,miProducto.getNombreProducto());
