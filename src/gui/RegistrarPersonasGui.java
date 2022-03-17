@@ -213,8 +213,8 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==btnAgregarMascotas) {
-			RegistrarMascotasGui ventanaGestionMascotas=new RegistrarMascotasGui(null, true,txtDocumento.getText());
-			ventanaGestionMascotas.setVisible(true);
+						
+			miCoordinador.mostrarVentanaRegistroMascotas();
 		}
 		if(e.getSource()==btnRegistrar) {
 			PersonaVo miPersona=new PersonaVo();

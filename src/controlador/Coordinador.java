@@ -15,6 +15,7 @@ import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaPrincipal;
+import vo.MascotaVo;
 import vo.Nacimiento;
 import vo.PersonaVo;
 import vo.ProductoVo;
@@ -152,6 +153,11 @@ public class Coordinador {
 
 	public String actualizarProductos(ProductoVo miProducto) {
 		return miProductoDao.actualizarProducto(miProducto);
+	}
+
+	public String RegistrarMascotasGui(MascotaVo miAnimal) {
+		// TODO Auto-generated method stub
+		return miMascotaDao.registrarMascotas(miAnimal);
 	}
 
 

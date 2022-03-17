@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.Coordinador;
 import vo.MascotaVo;
+import vo.PersonaVo;
 
 public class RegistrarMascotasGui extends JDialog implements ActionListener{
 
@@ -140,10 +141,35 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 			
 			miAnimal.setIdMascota(Long.parseLong((txtIdMascota.getText())));
 			miAnimal.setNombre(txtNombre.getText());
+			miAnimal.setRaza(txtRaza.getText());
+			miAnimal.setColorMascota((String) comboBoxColor.getSelectedItem());
+			miAnimal.setSexo((String) comboBoxSexo.getSelectedItem());
+			miAnimal.setIdDueno(Long.parseLong((txtIdDueno.getText())));
 			
+			PersonaVo miPersona = miCoordinador.setConsultarPersona(miAnimal.getIdDueno());
+			
+			if(miPersona != null) {
+				
+				String res = miCoordinador.RegistrarMascotasGui(miAnimal);
+				
+				if(res.equals("ok")) {
+					JOptionPane.showMessageDialog(null, "Registro Exitoso!!");
+				}else {
+					JOptionPane.showMessageDialog(null, res, "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Id de Due�o no existente, Porfavor ingrese uno existente");
+			}
+			
+			
+			
+		}else if(e.getSource()==btnCancelar) {
+			this.dispose();
 		}
-		
 	}
+		
+
 
 
 	public void setCoordinador(Coordinador miCoordinador) {
