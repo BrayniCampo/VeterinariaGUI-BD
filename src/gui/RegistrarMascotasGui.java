@@ -42,7 +42,7 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 		
 		iniciarComponentes(documento);
 		
-		
+		System.out.print("Holaaa")
 	}
 
 
