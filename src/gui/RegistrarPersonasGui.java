@@ -13,7 +13,6 @@ import javax.swing.border.TitledBorder;
 
 import controlador.Coordinador;
 import dao.PersonaDao;
-import vo.MascotaVo;
 import vo.Nacimiento;
 import vo.PersonaVo;
 
@@ -214,9 +213,8 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource()==btnAgregarMascotas) {
-			
-			miCoordinador.mostrarVentanaRegistroMascotas(Long.parseLong(txtDocumento.getText()));
-
+			RegistrarMascotasGui ventanaGestionMascotas=new RegistrarMascotasGui(null, true,txtDocumento.getText());
+			ventanaGestionMascotas.setVisible(true);
 		}
 		if(e.getSource()==btnRegistrar) {
 			PersonaVo miPersona=new PersonaVo();

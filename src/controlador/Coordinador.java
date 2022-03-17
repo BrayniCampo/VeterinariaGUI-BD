@@ -7,6 +7,7 @@ import dao.NacimientoDao;
 import dao.PersonaDao;
 import dao.PersonaProductoDao;
 import dao.ProductoDao;
+import gui.ActualizarProductos;
 import gui.ConsultarPersonaGUI;
 import gui.ConsultarProducto;
 import gui.EliminarProductos;
@@ -31,6 +32,7 @@ public class Coordinador {
 	ConsultarPersonaGUI consultarPersona;
 	EliminarProductos miEliminarProducto;
 	ConsultarProducto miConsultarProducto;
+	ActualizarProductos miActualizarProducto;
 
 	public void setVentanaPrincipal(VentanaPrincipal miVentanaPrincipal) {
 	this.miVentanaPrincipal=miVentanaPrincipal;
@@ -82,6 +84,10 @@ public class Coordinador {
 		this.consultarPersona=miConsultarPersonaGui;
 	}
 	
+	public void setActualizarProductos(ActualizarProductos miActualizarProducto) {
+		this.miActualizarProducto=miActualizarProducto;
+		
+	}
 	public PersonaVo setConsultarPersona(Long idDocumento) {
 		return miPersonaDao.consultarPersona(idDocumento);
 	}
@@ -91,12 +97,10 @@ public class Coordinador {
 		}
 	
 
-
-	public void mostrarVentanaRegistroMascotas(long l) {
+	public void mostrarVentanaRegistroMascotas() {
 		miRegistrarMascotasGui.setVisible(true);
 	}
 	
-
 	
 
 	public void mostrarVentanaRegistroPersonas() {
@@ -124,6 +128,9 @@ public class Coordinador {
 	public void mostrarVentanaEliminarProductos() {
 		miEliminarProducto.setVisible(true);
 	}
+	public void mostrarVentanaActualizarProductos() {
+		miActualizarProducto.setVisible(true);
+	}
 
 	public String registrarProducto(ProductoVo miProducto) {
 	
@@ -135,12 +142,17 @@ public class Coordinador {
 	}
 
 	public void mostrarVentanaConsultaProductos() {
-		
 		miConsultarProducto.setVisible(true);
 		
 	}
 
+	public ProductoVo obtenerProducto(Long idProducto) {
+		return miProductoDao.consultarProducto(idProducto);
+	}
 
+	public String actualizarProductos(ProductoVo miProducto) {
+		return miProductoDao.actualizarProducto(miProducto);
+	}
 
 
 }

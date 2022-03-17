@@ -4,6 +4,7 @@ import dao.NacimientoDao;
 import dao.PersonaDao;
 import dao.PersonaProductoDao;
 import dao.ProductoDao;
+import gui.ActualizarProductos;
 import gui.ConsultarPersonaGUI;
 import gui.ConsultarProducto;
 import gui.EliminarProductos;
@@ -29,6 +30,7 @@ public class Relaciones {
 		ConsultarPersonaGUI miConsultarPersonaGui;
 		EliminarProductos miEliminarProductos;
 		ConsultarProducto miConsultarProducto;
+		ActualizarProductos miActualizarProducto;
 
 		
 		miVentanaPrincipal= new VentanaPrincipal();
@@ -38,6 +40,7 @@ public class Relaciones {
 		miConsultarPersonaGui=new ConsultarPersonaGUI(miVentanaPrincipal, true);
 		miEliminarProductos=new EliminarProductos(miVentanaPrincipal,true);
 		miConsultarProducto=new ConsultarProducto(miVentanaPrincipal,true);
+		miActualizarProducto=new ActualizarProductos(miVentanaPrincipal,true);
 		
 		miCoordinador= new Coordinador();
 		miPersonaDao= new PersonaDao();
@@ -59,6 +62,7 @@ public class Relaciones {
 		miCoordinador.setConsultarPersonaGUI(miConsultarPersonaGui);
 		miCoordinador.setEliminarProductos(miEliminarProductos);
 		miCoordinador.setConsultarProducto(miConsultarProducto);
+		miCoordinador.setActualizarProductos(miActualizarProducto);
 
 		//A cada clase unica se le asigna la unica instancia del coordinador
 		miVentanaPrincipal.setCoordinador(miCoordinador);
@@ -73,6 +77,7 @@ public class Relaciones {
 		miConsultarPersonaGui.setCoordinador(miCoordinador);
 		miEliminarProductos.setCoordinador(miCoordinador);
 		miConsultarProducto.setCoordinador(miCoordinador);
+		miActualizarProducto.setCoordinador(miCoordinador);
 
 		//Se muestra la ventana principal.
 		miVentanaPrincipal.setVisible(true);

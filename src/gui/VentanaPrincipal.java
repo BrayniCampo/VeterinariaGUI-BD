@@ -151,6 +151,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		if(e.getSource()==itemConsultaProductos) {
 			miCoordinador.mostrarVentanaConsultaProductos();
 		}
+		if(e.getSource()==itemActualizarProductos) {
+			miCoordinador.mostrarVentanaActualizarProductos();
+		}
 	}
 
 	public void setCoordinador(Coordinador miCoordinador) {
