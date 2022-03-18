@@ -37,7 +37,7 @@ public class ActualizarProductos extends JDialog implements ActionListener{
 		setSize( 350, 289);
 		setLocationRelativeTo(null);
 		iniciarComponentes();
-		setTitle("Gestión de consultar");
+		setTitle("Gestiï¿½n de consultar");
 		
 	}
 	
@@ -84,7 +84,7 @@ public class ActualizarProductos extends JDialog implements ActionListener{
 			btnActualizar.setFont(new Font("Tahoma", Font.BOLD, 12));
 			btnActualizar.setBounds(115, 216, 103, 23);
 			getContentPane().add(btnActualizar);
-			btnBuscar.addActionListener(this);
+			btnActualizar.addActionListener(this);
 		}
 
 	@Override
