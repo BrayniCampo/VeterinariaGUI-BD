@@ -3,7 +3,9 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,22 +13,19 @@ import javax.swing.border.EmptyBorder;
 import controlador.Coordinador;
 import vo.MascotaVo;
 
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
+import javax.swing.JTextField;
 
-public class ActualizarMascotas extends JDialog implements ActionListener {
+public class ConsultarMascotas extends JDialog implements ActionListener {
 
 	private final JPanel contentPanel = new JPanel();
+	private JTextField textField;
 	private JTextField txtIdMascota;
 	private JTextField txtNombre;
 	private JTextField txtIdDueno;
@@ -37,18 +36,14 @@ public class ActualizarMascotas extends JDialog implements ActionListener {
 	private JLabel lblRaza;
 	private JLabel lblSexo;
 	private JLabel lblColor;
-	private JComboBox comboBoxColor;
-	private JButton btnActualizar;
-	private JButton btnCancelar;
-	private JComboBox comboBox;
-	private Coordinador miCoordinador;
-	private MascotaVo miAnimal;
+	private JTextField txtSexo;
+	private JTextField txtColor;
 	private JButton btnBuscar;
+	private JButton btnCancelar;
+	private Coordinador miCoordinador;
 
-	
-	
 
-	public ActualizarMascotas(VentanaPrincipal ventanaPrincipal, boolean modal) {
+	public ConsultarMascotas(VentanaPrincipal ventanaPrincipal, boolean modal) {
 		setBounds(100, 100, 450, 330);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,7 +70,7 @@ public class ActualizarMascotas extends JDialog implements ActionListener {
 		contentPanel.add(txtRaza);
 		txtRaza.setColumns(10);
 		
-		JLabel lblTitulo = new JLabel("ACTUALIZAR MASCOTAS");
+		JLabel lblTitulo = new JLabel("CONSULTAR MASCOTAS");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblTitulo.setBounds(46, 10, 318, 45);
@@ -101,102 +96,65 @@ public class ActualizarMascotas extends JDialog implements ActionListener {
 		contentPanel.add(lblRaza);
 		
 		lblSexo = new JLabel("Sexo");
-		lblSexo.setBounds(126, 144, 45, 13);
+		lblSexo.setBounds(128, 144, 45, 13);
 		contentPanel.add(lblSexo);
 		
 		lblColor = new JLabel("Color");
-		lblColor.setBounds(252, 144, 70, 13);
+		lblColor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblColor.setBounds(247, 144, 70, 13);
 		contentPanel.add(lblColor);
 		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Macho", "Hembra"}));
-		comboBox.setToolTipText("");
-		comboBox.setBounds(107, 164, 70, 21);
-		contentPanel.add(comboBox);
+		txtSexo = new JTextField();
+		txtSexo.setBounds(95, 167, 96, 19);
+		contentPanel.add(txtSexo);
+		txtSexo.setColumns(10);
 		
-		comboBoxColor =new JComboBox();
-		comboBoxColor.setModel(new DefaultComboBoxModel(new String[] {"Blanco ", "Caf\u00E9", "Negro ", "Manchas ", "Gris"}));
-		comboBoxColor.setBounds(230, 163, 72, 22);
-		contentPanel.add(comboBoxColor);
-		
-		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(173, 217, 89, 23);
-		btnActualizar.addActionListener(this);
-		contentPanel.add(btnActualizar);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(292, 217, 89, 23);
-		btnCancelar.addActionListener(this);
-		contentPanel.add(btnCancelar);
+		txtColor = new JTextField();
+		txtColor.setBounds(247, 167, 96, 19);
+		contentPanel.add(txtColor);
+		txtColor.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(64, 218, 85, 21);
+		btnBuscar.setBounds(141, 206, 85, 21);
 		btnBuscar.addActionListener(this);
 		contentPanel.add(btnBuscar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(232, 206, 85, 21);
+		btnCancelar.addActionListener(this);
+		contentPanel.add(btnCancelar);
+
 	}
-
-
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
 		if(e.getSource()==btnBuscar) {
 			
-			Long IdMascota = Long.parseLong(txtIdMascota.getText());
-			MascotaVo miAnimal = miCoordinador.ConsultarMascotas(IdMascota);
+			Long idMascota = Long.parseLong(txtIdMascota.getText());
+			MascotaVo miAnimal = miCoordinador.ConsultarMascotas(idMascota);
 			
 			if(miAnimal!=null) {
-				comboBoxColor.setEnabled(true);
-				txtIdDueno.setEnabled(false);
-				txtIdMascota.setEnabled(true);
-				txtNombre.setEnabled(true);
-				txtRaza.setEnabled(true);
-				comboBox.setEnabled(true);
 				
 				txtIdDueno.setText(miAnimal.getIdDueno()+"");
 				txtNombre.setText(miAnimal.getNombre());
 				txtRaza.setText(miAnimal.getRaza());
-				comboBoxColor.setToolTipText(miAnimal.getColorMascota());
-				comboBoxColor.setToolTipText(miAnimal.getSexo());
-				btnActualizar.setVisible(true);
-				
+				txtColor.setText(miAnimal.getColorMascota());
+				txtSexo.setText(miAnimal.getSexo());
 			}else {
-				JOptionPane.showMessageDialog(null, "Mascota no existente");
-			}
-	}
-
-		if(e.getSource()==btnActualizar) {
-			
-			MascotaVo miAnimal = new MascotaVo();
-			miAnimal.setColorMascota((String) comboBoxColor.getSelectedItem());
-			miAnimal.setNombre(txtNombre.getText());
-			miAnimal.setRaza(txtRaza.getText());
-			miAnimal.setSexo((String) comboBox.getSelectedItem());
-			miAnimal.setIdMascota(Long.parseLong(txtIdMascota.getText()));
-			
-			String buscandoMas=miCoordinador.actualizarMascotas(miAnimal);
-		
-			if(buscandoMas.equals("perfecto")) {
 				
-				JOptionPane.showMessageDialog(null,"Se ha actualizado los datos correctamente.");
-				this.dispose();
-			}else {
-				System.out.println("ERRROR");
+				JOptionPane.showMessageDialog(null, "Esta mascota no existe en la base de datos. ");
 			}
-			
 		}else if(e.getSource()==btnCancelar) {
-			
 			this.dispose();
 		}
+		
 	}
-
-
+	
 
 
 	public void setCoordinador(Coordinador miCoordinador) {
-		// TODO Auto-generated method stub
-		this.miCoordinador=miCoordinador;
+		this.miCoordinador=miCoordinador;		
 	}
 }

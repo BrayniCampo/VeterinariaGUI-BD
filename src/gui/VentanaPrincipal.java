@@ -25,6 +25,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenuItem itemConsultaProductos;
 	private JMenuItem itemRegistroProductos;
 	private JMenuItem itemActualizarPersonas;
+	private JMenuItem itemListarMascotas;
 	private JMenuBar menuBar;
 	private JMenu menuPersonas;
 	private JMenu MenuMascotas;
@@ -89,6 +90,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		itemEliminarMascotas.addActionListener(this);
 		MenuMascotas.add(itemEliminarMascotas);
 		
+		itemListarMascotas = new JMenuItem("Listar");
+		itemListarMascotas.addActionListener(this);
+		MenuMascotas.add(itemListarMascotas);
+		
 		menuProductos = new JMenu("Gestionar Productos");
 		menuBar.add(menuProductos);
 		
@@ -138,6 +143,18 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}
 		if (e.getSource()==itemRegistrarMascotas) {
 			miCoordinador.mostrarVentanaRegistroMascotas();
+		}
+		if(e.getSource()==itemActualizarMascotas) {
+			miCoordinador.mostrarVentanaActualizarMascotas();
+		}
+		if(e.getSource()==itemConsultarMascotas) {
+			miCoordinador.mostrarVentanaConsultarMascotas();
+		}
+		if(e.getSource()==itemEliminarMascotas) {
+			miCoordinador.mostrarVentanaEliminarMascotas();
+		}
+		if(e.getSource()==itemListarMascotas) {
+			miCoordinador.mostrarVentanaListarMascotas();
 		}
 		if (e.getSource()==itemRegistroProductos) {
 			miCoordinador.mostrarVentanaRegistroProductos();
