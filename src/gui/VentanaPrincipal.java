@@ -136,6 +136,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			
 			miCoordinador.mostrarVentanaRegistroPersonas();
 		}
+		if(e.getSource()==itemActualizarPersonas) {
+			miCoordinador.mostrarActualizarPersonasGui();
+		}
 		if (e.getSource()==itemRegistrarMascotas) {
 			miCoordinador.mostrarVentanaRegistroMascotas();
 		}
@@ -153,6 +156,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}
 		if(e.getSource()==itemActualizarProductos) {
 			miCoordinador.mostrarVentanaActualizarProductos();
+		}
+		if(e.getSource()==itemEliminarPersonas) {
+			miCoordinador.mostrarVentanaEliminarPersona();
 		}
 	}
 

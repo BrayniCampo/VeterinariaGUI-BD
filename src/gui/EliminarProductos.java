@@ -8,8 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controlador.Coordinador;
+import vo.ProductoVo;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -18,6 +21,8 @@ import javax.swing.JDialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.border.BevelBorder;
 
 public class EliminarProductos extends JDialog implements ActionListener {
 
@@ -27,10 +32,13 @@ public class EliminarProductos extends JDialog implements ActionListener {
 	private Coordinador miCoordinador;
 	private JButton btnBuscar;
 	private JLabel lblMsj;
+	private JTextArea textArea;
+	private JTextField textNombre;
+	private JTextField textPrecio;
 	
 public EliminarProductos(VentanaPrincipal ventanaPrincipal, boolean modal) {
 		super(ventanaPrincipal,modal);
-		setSize( 624, 423);
+		setSize( 328, 297);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		iniciarComponentes();
@@ -46,40 +54,66 @@ public EliminarProductos(VentanaPrincipal ventanaPrincipal, boolean modal) {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblproducto = new JLabel("Ingrese el id del producto");
-		lblproducto.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblproducto.setBounds(67, 21, 170, 23);
-		contentPane.add(lblproducto);
-		
-		textId = new JTextField();
-		textId.setBounds(88, 55, 86, 20);
-		contentPane.add(textId);
-		textId.setColumns(10);
-		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(this);
-			
-		
-		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnEliminar.setBounds(100, 192, 89, 23);
-		contentPane.add(btnEliminar);
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(184, 55, 65, 20);
-		contentPane.add(btnBuscar);
-		
 		lblMsj = new JLabel("");
 		lblMsj.setBounds(67, 214, 140, 23);
 		contentPane.add(lblMsj);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(49, 103, 188, 67);
-		contentPane.add(textArea);
+		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(10, 71, 275, 176);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		textPrecio = new JTextField();
+		textPrecio.setBounds(15, 119, 86, 20);
+		panel.add(textPrecio);
+		textPrecio.setColumns(10);
+		
+		textNombre = new JTextField();
+		textNombre.setBounds(15, 75, 86, 20);
+		panel.add(textNombre);
+		textNombre.setColumns(10);
+		
+		textId = new JTextField();
+		textId.setBounds(95, 25, 86, 20);
+		panel.add(textId);
+		textId.setColumns(10);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(191, 25, 65, 20);
+		panel.add(btnBuscar);
+		
+		JLabel lblproducto = new JLabel("ID Producto");
+		lblproducto.setBounds(10, 23, 91, 23);
+		panel.add(lblproducto);
+		lblproducto.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(134, 96, 89, 23);
+		panel.add(btnEliminar);
+		btnEliminar.addActionListener(this);
+		
+		
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		JLabel lblNewLabel = new JLabel("ELIMINAR PRODUCTOS");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblNewLabel.setBounds(43, 11, 222, 49);
+		contentPane.add(lblNewLabel);
+		btnBuscar.addActionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnBuscar) {
-			
+			ProductoVo miProducto=miCoordinador.obtenerProducto(Long.parseLong(textId.getText()));
+			System.out.println(miProducto);
+			if(miProducto!=null) {
+				textNombre.setText(miProducto.getNombreProducto());
+				textPrecio.setText(miProducto.getPrecioProducto()+"");
+				
+			}else {
+				JOptionPane.showMessageDialog(null,"El producto no existe");
+			}
 		}
 		
 		if(e.getSource()==btnEliminar) {

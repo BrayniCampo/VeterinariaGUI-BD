@@ -49,6 +49,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 	private JLabel lblDepartamento;
 	private JLabel lblPais;
 	private JSeparator separator;
+	private JButton btnRegistrarProducto;
 
 
 	/**
@@ -207,6 +208,11 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 		btnRegistrar.setBounds(364, 276, 89, 23);
 		btnRegistrar.addActionListener(this);
 		panel.add(btnRegistrar);
+		
+		btnRegistrarProducto = new JButton("Agregar Producto");
+		btnRegistrarProducto.setBounds(34, 219, 151, 23);
+		panel.add(btnRegistrarProducto);
+		btnRegistrarProducto.addActionListener(this);
 	}
 	
 
@@ -249,6 +255,9 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 			}
 					
 		}
+		if(e.getSource()==btnRegistrarProducto) {
+			miCoordinador.mostrarVentanaRegistroProductos();
+		}
 
 	}
 	
@@ -257,7 +266,4 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 	public void setCoordinador(Coordinador miCoordinador) {
 		this.miCoordinador=miCoordinador;
 	}
-
-
-	
 }
