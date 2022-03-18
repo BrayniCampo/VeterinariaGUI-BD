@@ -1,7 +1,14 @@
 package vo;
 
 public class ProductoVo {
-	private Long idProducto;
+	private Long idProducto,idPersona;
+	
+	public Long getIdPersona() {
+		return idPersona;
+	}
+	public void setIdPersona(Long idPersona) {
+		this.idPersona = idPersona;
+	}
 	private String nombreProducto;
 	private Double precioProducto;
 	public ProductoVo() {
@@ -17,6 +24,7 @@ public class ProductoVo {
 	public void setIdProducto(Long idProducto) {
 	this.idProducto = idProducto;
 	}
+	
 	public String getNombreProducto() {
 	return nombreProducto;
 	}
@@ -37,4 +45,5 @@ public class ProductoVo {
 	+ " precioProducto="+ precioProducto + "]";
 
 	}
+	
 }

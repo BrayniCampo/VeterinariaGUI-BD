@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.mysql.cj.xdevapi.Result;
 
@@ -31,12 +32,13 @@ public class ProductoDao {
 		PreparedStatement preStatement=null;
 		
 		connection = conexion.getConnection();
-		String consulta="INSERT INTO producto (nombreProducto,precioProducto)"+ "VALUES (?,?)";
+		String consulta="INSERT INTO producto (idProducto,nombreProducto,precioProducto)"+ "VALUES (?,?,?)";
 		try {
 			preStatement=connection.prepareStatement(consulta);
-			//preStatement.setLong(1,miProducto.getIdProducto());
-			preStatement.setString(1,miProducto.getNombreProducto());
-			preStatement.setDouble(2,miProducto.getPrecioProducto());
+			preStatement.setLong(1,miProducto.getIdProducto());
+			preStatement.setString(2,miProducto.getNombreProducto());
+			preStatement.setDouble(3,miProducto.getPrecioProducto());
+			//preStatement.setLong(3, miProducto.getIdPersona());
 			
 			preStatement.execute();
 			
@@ -138,7 +140,11 @@ public class ProductoDao {
 		PreparedStatement preStatement=null;
 		
 		connection=conexion.getConnection();
-		String consulta="UPDATE producto"+"SET nombreProducto=?,"+"precioProducto=?"+"where idProducto=?";
+		String consulta="UPDATE producto SET "
+				+ "nombreProducto=?,"
+				+ "precioProducto=? "
+				+ "where idProducto=?";
+		
 		try {
 			preStatement=connection.prepareStatement(consulta);
 			preStatement.setString(1,miProducto.getNombreProducto());
@@ -162,5 +168,44 @@ public class ProductoDao {
 		
 	}
 
-
-}
+	public ArrayList<ProductoVo> imprimirProductos() {
+		ArrayList<ProductoVo> listaProductos=new ArrayList<ProductoVo>();
+		
+		ProductoVo miProducto=null;
+		ResultSet  result=null;
+	
+		Connection connection=null;
+		Conexion conexion=new Conexion();
+		PreparedStatement preStatement=null;
+		connection=conexion.getConnection();
+		
+		String consulta="SELECT * FROM producto ";
+		try {
+			if(connection!=null) {
+				preStatement=connection.prepareStatement(consulta);
+				result=preStatement.executeQuery();
+				while(result.next()) {
+					miProducto =new ProductoVo();
+					miProducto.setIdProducto(result.getLong("idProducto"));
+					miProducto.setNombreProducto(result.getString("nombreProducto"));
+					miProducto.setPrecioProducto(result.getDouble("precioProducto"));
+					
+					listaProductos.add(miProducto);
+					
+				}
+				conexion.desconectar();
+				
+			}else {
+				miProducto=null;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("Error en la consulta de productos: "+e.getMessage());
+		}
+		return listaProductos;
+	}
+		
+	}
+	

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import controlador.Coordinador;
 import modelo.conexion.Conexion;
@@ -134,8 +135,129 @@ public class PersonaDao {
 		return miNacimiento;		
 	}
 
+	public ArrayList<PersonaVo> imprimirPersonas() {
+		ArrayList<PersonaVo> personas = new ArrayList<PersonaVo>();
+		Connection connection=null;
+		Conexion miConexion = new Conexion();
+		PreparedStatement statement=null;
+		ResultSet result=null;
+		
+		PersonaVo miPersona=null;
+		Nacimiento miNacimiento=null;
+		
+		connection=miConexion.getConnection();
+		
+		String consulta="SELECT * FROM persona";
+		
+		try {
+			
+			if(connection!=null) {
+				statement=connection.prepareStatement(consulta);
 
+				result=statement.executeQuery();
+				
+				while(result.next()==true) {
+					miPersona=new PersonaVo();
+					miPersona.setIdPersona(result.getLong("id_persona"));
+					miPersona.setNombre(result.getString("nombre_persona"));
+					miPersona.setProfesion(result.getString("profesion_persona"));
+					miPersona.setTelefono(result.getString("telefono_persona"));
+					miPersona.setTipo(result.getInt("tipo_persona"));
+					
+					
+					miNacimiento=micoordinador.consultarNacimiento(result.getLong("nacimiento_id"));
 
+					miPersona.setNacimiento(miNacimiento);
+					
+					personas.add(miPersona);
+				}
+				
+				miConexion.desconectar();
+				
+			}else {
+				miPersona=null;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("Error en la consulta de la persona: "+e.getMessage());
+		}
+		return personas;
+	}
+	
+	
+	
+	
+	public String actualizarPersona(PersonaVo p) {
+		
+		String resultado="";
+		Connection connection = null;
+		Conexion miConexion = new Conexion();
+		PreparedStatement preStatement = null;
+		connection = miConexion.getConnection();
+		
+		String consulta="UPDATE persona "
+				+ " SET nombre_persona= ?, profesion_persona = ?, telefono_persona = ?, tipo_persona = ?, nacimiento_id = ?"
+				+ " WHERE id_persona =?";
+		
+		try {
+			
+			preStatement = connection.prepareStatement(consulta);
+			
+			preStatement.setString(1, p.getNombre());
+			preStatement.setString(2, p.getProfesion());
+			preStatement.setString(3, p.getTelefono());
+			preStatement.setInt(4, p.getTipo());
+			preStatement.setLong(5, p.getNacimiento().getIdNacimiento());
+			preStatement.setLong(6, p.getIdPersona());
+			
+			preStatement.executeUpdate();
+			
+			resultado="ok";
+			
+			miConexion.desconectar();	
+			
+		} catch (SQLException e) {
+			System.out.println("Error en la inserccion de datos de persona:"+e);
+			resultado="No Logrado";
+		}
+		
+		return resultado;
+		
+	}
+
+public String eliminarPersona(Long idPersona) {
+		
+		String resultado="";
+		Connection connection=null;
+		Conexion conexion=new Conexion();
+		PreparedStatement preStatement=null;
+		
+		connection=conexion.getConnection();
+		String consulta="DELETE FROM persona where id_persona=?";
+		try {
+		preStatement=connection.prepareStatement(consulta);
+		preStatement.setLong(1,idPersona);
+		
+		preStatement.execute();
+		resultado="ok";
+	}catch (SQLException e) {
+		System.out.println("No se pudo eliminar la persona, verifique el documento exista"
+				+e.getMessage());
+		e.printStackTrace();
+		resultado="No se pudo eliminar la persona";
+	}catch (Exception e) {
+		System.out.println("No se pudo eliminar la persona"+e.getMessage());
+		e.printStackTrace();
+		resultado="No se pudo eliminar la persona";
+	}
+	finally{
+		conexion.desconectar();
+	}
+	return resultado;
+		
+	}
 }
 
 

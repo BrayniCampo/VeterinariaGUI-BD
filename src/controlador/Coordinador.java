@@ -1,20 +1,29 @@
 package controlador;
-import java.awt.Dialog;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import dao.MascotaDao;
 import dao.NacimientoDao;
 import dao.PersonaDao;
 import dao.PersonaProductoDao;
 import dao.ProductoDao;
-import gui.ActualizarMascotas;
+
+import gui.ActualizarPersonasGui;
 import gui.ActualizarProductos;
 import gui.ConsultarPersonaGUI;
 import gui.ConsultarProducto;
-import gui.EliminarMascotasGUI;
+import gui.EliminarPersonas;
 import gui.EliminarProductos;
+import gui.ListarPersonasGui;
+import gui.ListarProductos;
+
+import gui.ActualizarMascotas;
+import gui.EliminarMascotasGUI;
 import gui.ListarMascotasGUI;
+
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
@@ -22,11 +31,14 @@ import gui.VentanaPrincipal;
 import vo.MascotaVo;
 import vo.Nacimiento;
 import vo.PersonaVo;
+import vo.PersonasProductoVo;
 import vo.ProductoVo;
 public class Coordinador {
 	
 	VentanaPrincipal miVentanaPrincipal;
 	RegistrarPersonasGui miRegistrarPersonasGui;
+	ListarPersonasGui miListarPersonasGui;
+	ActualizarPersonasGui miActualizarPersonasGui;
 	RegistrarMascotasGui miRegistrarMascotasGui;
 	RegistrarProductosGui miRegistrarProductosGui;
 	PersonaDao miPersonaDao;
@@ -38,21 +50,27 @@ public class Coordinador {
 	EliminarProductos miEliminarProducto;
 	ConsultarProducto miConsultarProducto;
 	ActualizarProductos miActualizarProducto;
+
+	ListarProductos listarProductos;
+	EliminarPersonas eliminarPersona;
 	ActualizarMascotas miActualizarMascota;
 	gui.ConsultarMascotas miConsultarMascotas;
 	EliminarMascotasGUI miEliminarMascotasGUI;
 	private ListarMascotasGUI miListandoMascotasGui;
 	
 
-
 	public void setVentanaPrincipal(VentanaPrincipal miVentanaPrincipal) {
 	this.miVentanaPrincipal=miVentanaPrincipal;
 	}
 
+	
 	public void setRegistrarPersonasGui(RegistrarPersonasGui miRegistrarPersonasGui) {
 	this.miRegistrarPersonasGui=miRegistrarPersonasGui;
 	}
 
+	public void setEliminarPersona(EliminarPersonas eliminarPersona) {
+		this.eliminarPersona=eliminarPersona;
+	}
 	public void setRegistrarMascotasGui(RegistrarMascotasGui miRegistrarMascotasGui) {
 	this.miRegistrarMascotasGui=miRegistrarMascotasGui;
 	}
@@ -148,6 +166,10 @@ public class Coordinador {
 	public void mostrarVentanaEliminarProductos() {
 		miEliminarProducto.setVisible(true);
 	}
+	
+	public void mostrarVentanaEliminarPersona() {
+		eliminarPersona.setVisible(true);
+	}
 	public void mostrarVentanaActualizarProductos() {
 		miActualizarProducto.setVisible(true);
 	}
@@ -173,6 +195,9 @@ public class Coordinador {
 		return miProductoDao.eliminarProducto(idProducto);
 	}
 
+	public String eliminarPersona(Long idPersona) {
+		return miPersonaDao.eliminarPersona(idPersona);
+	}
 	public void mostrarVentanaConsultaProductos() {
 		miConsultarProducto.setVisible(true);
 		
@@ -185,6 +210,54 @@ public class Coordinador {
 	public String actualizarProductos(ProductoVo miProducto) {
 		return miProductoDao.actualizarProducto(miProducto);
 	}
+	public void mostrarVentanalistarProductos() {
+		ArrayList<ProductoVo> producto = miProductoDao.imprimirProductos();
+		listarProductos.llenar(producto);
+		listarProductos.setVisible(true);
+		
+		}
+		
+	
+
+	public String crearProducto(PersonasProductoVo miproductoPers) {
+		return	miPersonaProductoDao.registrarProducto(miproductoPers);
+	}
+	public void setListarPersonasGui(ListarPersonasGui miListarPersonasGui) {
+		// TODO Auto-generated method stub
+		this.miListarPersonasGui = miListarPersonasGui;
+	}
+	
+	public void setListarProductos(ListarProductos listarProductos) {
+		this.listarProductos=listarProductos;
+	}
+	public void mostrarListarPersonas() {
+		ArrayList<PersonaVo> personas = miPersonaDao.imprimirPersonas();
+		miListarPersonasGui.setVisible(true);
+		miListarPersonasGui.llenar(personas);
+	}
+	public void setActualizarPersona(ActualizarPersonasGui miActualizarPersonasGui) {
+		// TODO Auto-generated method stub
+		this.miActualizarPersonasGui = miActualizarPersonasGui;
+	}
+	public void mostrarActualizarPersonasGui() {
+		miActualizarPersonasGui.setVisible(true);
+	}
+	public String actualizarNacimiento(Nacimiento nacimiento) {
+		// TODO Auto-generated method stub
+		return miNacimientoDao.actualizarNacimiento(nacimiento);
+	}
+	public String actualizarPersona(PersonaVo p) {
+		// TODO Auto-generated method stub
+		return miPersonaDao.actualizarPersona(p);
+	}
+
+	
+
+	
+
+	
+
+	
 
 	public String RegistrarMascotasGui(MascotaVo miAnimal) {
 		// TODO Auto-generated method stub
