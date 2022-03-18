@@ -41,6 +41,7 @@ public class ConsultarMascotas extends JDialog implements ActionListener {
 	private JButton btnBuscar;
 	private JButton btnCancelar;
 	private Coordinador miCoordinador;
+	private JButton btnListar;
 
 
 	public ConsultarMascotas(VentanaPrincipal ventanaPrincipal, boolean modal) {
@@ -115,14 +116,19 @@ public class ConsultarMascotas extends JDialog implements ActionListener {
 		txtColor.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(141, 206, 85, 21);
+		btnBuscar.setBounds(175, 206, 85, 21);
 		btnBuscar.addActionListener(this);
 		contentPanel.add(btnBuscar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(232, 206, 85, 21);
+		btnCancelar.setBounds(288, 206, 85, 21);
 		btnCancelar.addActionListener(this);
 		contentPanel.add(btnCancelar);
+		
+		btnListar = new JButton("Listar Mascotas");
+		btnListar.setBounds(23, 205, 125, 23);
+		btnListar.addActionListener(this);
+		contentPanel.add(btnListar);
 
 	}
 
@@ -148,6 +154,10 @@ public class ConsultarMascotas extends JDialog implements ActionListener {
 			}
 		}else if(e.getSource()==btnCancelar) {
 			this.dispose();
+		}else if(e.getSource()==btnListar) {
+			
+			miCoordinador.mostrarVentanaListarMascotas();
+			
 		}
 		
 	}

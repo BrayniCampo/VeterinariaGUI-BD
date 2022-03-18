@@ -34,21 +34,21 @@ public class ListarMascotasGUI extends JDialog implements ActionListener {
 	private ArrayList<MascotaVo> mascotas;
 
 	public ListarMascotasGUI(VentanaPrincipal ventanaPrincipal, boolean modal) {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 668, 384);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		lblListaDeMascotas = new JLabel("MASCOTAS");
-		lblListaDeMascotas.setForeground(Color.MAGENTA);
-		lblListaDeMascotas.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblListaDeMascotas = new JLabel("LISTA DE MASCOTAS");
+		lblListaDeMascotas.setForeground(Color.RED);
+		lblListaDeMascotas.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		lblListaDeMascotas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblListaDeMascotas.setBounds(139, 10, 157, 23);
+		lblListaDeMascotas.setBounds(189, 22, 252, 23);
 		contentPanel.add(lblListaDeMascotas);
 		
 		scrollTablas = new JScrollPane();
-		scrollTablas.setBounds(10,80,630,247);
+		scrollTablas.setBounds(10,55,630,247);
 		contentPanel.add(scrollTablas);
 		
 		

@@ -155,7 +155,8 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 				if(res.equals("ok")) {
 					JOptionPane.showMessageDialog(null, "Registro Exitoso!!");
 				}else {
-					JOptionPane.showMessageDialog(null, res, "ERROR", JOptionPane.ERROR_MESSAGE);
+					//JOptionPane.showMessageDialog(null, res, "ERROR", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, res);
 				}
 				
 			}else {
