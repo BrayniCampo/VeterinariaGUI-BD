@@ -10,6 +10,7 @@ import dao.NacimientoDao;
 import dao.PersonaDao;
 import dao.PersonaProductoDao;
 import dao.ProductoDao;
+
 import gui.ActualizarPersonasGui;
 import gui.ActualizarProductos;
 import gui.ConsultarPersonaGUI;
@@ -18,10 +19,16 @@ import gui.EliminarPersonas;
 import gui.EliminarProductos;
 import gui.ListarPersonasGui;
 import gui.ListarProductos;
+
+import gui.ActualizarMascotas;
+import gui.EliminarMascotasGUI;
+import gui.ListarMascotasGUI;
+
 import gui.RegistrarMascotasGui;
 import gui.RegistrarPersonasGui;
 import gui.RegistrarProductosGui;
 import gui.VentanaPrincipal;
+import vo.MascotaVo;
 import vo.Nacimiento;
 import vo.PersonaVo;
 import vo.PersonasProductoVo;
@@ -43,8 +50,13 @@ public class Coordinador {
 	EliminarProductos miEliminarProducto;
 	ConsultarProducto miConsultarProducto;
 	ActualizarProductos miActualizarProducto;
+
 	ListarProductos listarProductos;
 	EliminarPersonas eliminarPersona;
+	ActualizarMascotas miActualizarMascota;
+	gui.ConsultarMascotas miConsultarMascotas;
+	EliminarMascotasGUI miEliminarMascotasGUI;
+	private ListarMascotasGUI miListandoMascotasGui;
 	
 
 	public void setVentanaPrincipal(VentanaPrincipal miVentanaPrincipal) {
@@ -96,6 +108,8 @@ public class Coordinador {
 	this.miPersonaProductoDao=miPersonaProductoDao;
 	}
 	
+	
+	
 	public void setConsultarPersonaGUI(ConsultarPersonaGUI miConsultarPersonaGui) {
 		// TODO Auto-generated method stub
 		this.consultarPersona=miConsultarPersonaGui;
@@ -128,7 +142,14 @@ public class Coordinador {
 		miRegistrarProductosGui.setVisible(true);
 		
 	}
-	
+	public void mostrarVentanaConsultarMascotas() {
+		miConsultarMascotas.setVisible(true);
+		
+	}
+	public void mostrarVentanaEliminarMascotas() {
+		miEliminarMascotasGUI.setVisible(true);
+		
+	}
 	public String registrarPersona(PersonaVo miPersona) {
 		return miPersonaDao.registrarPersona(miPersona);
 	}
@@ -152,6 +173,18 @@ public class Coordinador {
 	public void mostrarVentanaActualizarProductos() {
 		miActualizarProducto.setVisible(true);
 	}
+	
+	public void mostrarVentanaActualizarMascotas() {
+		miActualizarMascota.setVisible(true);
+	}
+	
+	public void mostrarVentanaListarMascotas() {
+		ArrayList<MascotaVo> mascotas = miMascotaDao.imprimirMascotas();
+		miListandoMascotasGui.setVisible(true);
+		miListandoMascotasGui.ListandoAnimales(mascotas);
+	}
+	
+
 
 	public String registrarProducto(ProductoVo miProducto) {
 	
@@ -225,6 +258,53 @@ public class Coordinador {
 	
 
 	
+
+	public String RegistrarMascotasGui(MascotaVo miAnimal) {
+		// TODO Auto-generated method stub
+		return miMascotaDao.registrarMascotas(miAnimal);
+	}
+
+	public void setActualizarMascotas(ActualizarMascotas miActualizarMascotas) {
+		// TODO Auto-generated method stub
+		this.miActualizarMascota=miActualizarMascotas;
+	}
+	
+
+	public String actualizarMascotas(MascotaVo miAnimal) {
+		// TODO Auto-generated method stub
+		return miMascotaDao.actualizarMascotar(miAnimal);
+	}
+
+	public MascotaVo ConsultarMascotas(Long idMascota) {
+		return miMascotaDao.consultarMascotas(idMascota);
+	}
+
+	public void setConsultarMascotas(gui.ConsultarMascotas miConsultarMascotas) {
+		this.miConsultarMascotas=miConsultarMascotas;
+		
+	}
+
+	public String eliminarMascotas(MascotaVo miAnimal) {
+		// TODO Auto-generated method stub
+		return miMascotaDao.eliminarMascotas(miAnimal);
+	}
+
+	public void setEliminarMascotas(EliminarMascotasGUI miEliminarMascotasGui) {
+		
+		this.miEliminarMascotasGUI=miEliminarMascotasGui;
+		
+	}
+
+	public void setListarMascotas(ListarMascotasGUI miListandoMascotasGui) {
+		
+		this.miListandoMascotasGui=miListandoMascotasGui;
+		
+	}
+
+
+
+
+
 
 
 }
