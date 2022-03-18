@@ -30,6 +30,20 @@ CREATE TABLE mascotas(
 	persona_id int
 );
 
+CREATE TABLE producto(
+idProducto int(11) NOT NULL ,
+nombreProducto varchar(45) default null,
+precioProducto int(100),
+PRIMARY KEY(idProducto)
+);
+
+CREATE TABLE personaProducto(
+	
+idProductoP int(11) NOT NULL ,
+idPersonaP int(11) NOT NULL,
+codP int(11) not null auto_increment,
+primary Key (codP)
+);
 
 ALTER TABLE persona 
 ADD INDEX fk_persona_nacimiento (nacimiento_id ASC);
