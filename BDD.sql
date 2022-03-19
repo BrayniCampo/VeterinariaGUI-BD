@@ -39,12 +39,9 @@ PRIMARY KEY(idProducto)
 
 
 CREATE TABLE personaProducto(
-	
-idProductoP int(11) NOT NULL ,
+idProducto int(11) NOT NULL auto_increment,
 idPersonaP int(11) NOT NULL,
-codP int(11) not null auto_increment,
-primary Key (codP)
->>>>>>> c709ec57333bd505c2d58ec3815511fbe93f62e1
+primary Key (idProducto)
 );
 
 ALTER TABLE persona 

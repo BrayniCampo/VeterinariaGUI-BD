@@ -162,6 +162,7 @@ public class ActualizarMascotas extends JDialog implements ActionListener {
 				comboBoxColor.setToolTipText(miAnimal.getSexo());
 				btnActualizar.setVisible(true);
 				
+				
 			}else {
 				JOptionPane.showMessageDialog(null, "Mascota no existente");
 			}

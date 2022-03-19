@@ -96,6 +96,7 @@ public class RegistrarMascotasGui extends JDialog implements ActionListener{
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(this);
 		btnCancelar.setBounds(271, 150, 89, 23);
+		btnCancelar.addActionListener(this);
 		panel.add(btnCancelar);
 		
 		btnRegistrar = new JButton("Registrar");

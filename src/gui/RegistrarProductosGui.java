@@ -126,6 +126,9 @@ public class RegistrarProductosGui  extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Persona no existente");
 			}
 			
+		}else if (e.getSource()==btnCancelar) {
+			
+			this.dispose();
 		}
 	}
 			
