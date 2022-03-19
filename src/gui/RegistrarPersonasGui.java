@@ -223,6 +223,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 			miCoordinador.mostrarVentanaRegistroMascotas();
 		}
 		if(e.getSource()==btnRegistrar) {
+			System.out.println("AAAA");
 			PersonaVo miPersona=new PersonaVo();
 			miPersona.setIdPersona(Long.parseLong(txtDocumento.getText()));
 			miPersona.setNombre(txtNombre.getText());
