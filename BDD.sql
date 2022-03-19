@@ -37,12 +37,14 @@ precioProducto int(100),
 PRIMARY KEY(idProducto)
 );
 
+
 CREATE TABLE personaProducto(
 	
 idProductoP int(11) NOT NULL ,
 idPersonaP int(11) NOT NULL,
 codP int(11) not null auto_increment,
 primary Key (codP)
+>>>>>>> c709ec57333bd505c2d58ec3815511fbe93f62e1
 );
 
 ALTER TABLE persona 
@@ -55,12 +57,11 @@ ADD CONSTRAINT fk_persona_nacimiento
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     
-    
 alter table mascotas
-add index fk_mascotas_persona (id_persona ASC);
+add index fk_mascotas_persona (persona_id ASC);
 alter table mascotas
 add constraint fk_mascotas_persona
-	foreign key (id_persona)
+	foreign key (persona_id)
 	references persona (id_persona)
 	on delete no action
 	on update no action;
