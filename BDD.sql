@@ -36,10 +36,15 @@ nombreProducto varchar(45) default null,
 precioProducto int(100),
 PRIMARY KEY(idProducto)
 );
+
+
 CREATE TABLE personaProducto(
-idProducto int(11) NOT NULL auto_increment,
+	
+idProductoP int(11) NOT NULL ,
 idPersonaP int(11) NOT NULL,
-primary Key (idProducto)
+codP int(11) not null auto_increment,
+primary Key (codP)
+>>>>>>> c709ec57333bd505c2d58ec3815511fbe93f62e1
 );
 
 ALTER TABLE persona 

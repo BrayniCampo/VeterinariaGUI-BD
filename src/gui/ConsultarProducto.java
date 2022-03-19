@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JSeparator;
+import java.awt.Color;
 
 public class ConsultarProducto extends JDialog implements ActionListener {
 	private JTextField textField;
@@ -27,10 +29,11 @@ public class ConsultarProducto extends JDialog implements ActionListener {
 	private JTextField textNombre;
 	private JTextField textPrecio;
 	private JButton btnBuscar;
+	private JButton btnConsulta;
 
 	public ConsultarProducto(VentanaPrincipal ventanaPrincipal, boolean modal) {
 		super(ventanaPrincipal,modal);
-		setSize( 350, 280);
+		setSize( 441, 268);
 		setLocationRelativeTo(null);
 		iniciarComponentes();
 		setTitle("Gestión de consultar");
@@ -41,39 +44,55 @@ public class ConsultarProducto extends JDialog implements ActionListener {
 			getContentPane().setLayout(null);
 		
 			textField = new JTextField();
-			textField.setBounds(85, 47, 86, 20);
+			textField.setBounds(147, 42, 89, 20);
 			getContentPane().add(textField);
 			textField.setColumns(10);
 		
 			lblTitulo = new JLabel("Ingrese el ID del producto");
-			lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblTitulo.setBounds(56, 11, 192, 20);
+			lblTitulo.setForeground(Color.RED);
+			lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 15));
+			lblTitulo.setBounds(99, 11, 208, 20);
 			getContentPane().add(lblTitulo);
 		
 			lblNombre = new JLabel("Nombre:");
-			lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+			lblNombre.setForeground(Color.BLACK);
+			lblNombre.setFont(new Font("Tahoma", Font.BOLD, 14));
 			lblNombre.setBounds(24, 113, 67, 27);
 			getContentPane().add(lblNombre);
 			
 			JLabel lblPrecio = new JLabel("Precio:");
-			lblPrecio.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-			lblPrecio.setBounds(24, 172, 67, 14);
+			lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblPrecio.setBounds(221, 119, 67, 14);
 			getContentPane().add(lblPrecio);
 			
 			textNombre = new JTextField();
-			textNombre.setBounds(115, 117, 86, 20);
+			textNombre.setBounds(99, 117, 95, 20);
 			getContentPane().add(textNombre);
 			textNombre.setColumns(10);
 			
 			textPrecio = new JTextField();
-			textPrecio.setBounds(115, 170, 86, 20);
+			textPrecio.setBounds(298, 118, 103, 20);
 			getContentPane().add(textPrecio);
 			textPrecio.setColumns(10);
 			
-			btnBuscar = new JButton("Buscar");
-			btnBuscar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-			btnBuscar.setBounds(201, 46, 89, 23);
+			btnBuscar = new JButton("BUSCAR");
+			btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 13));
+			btnBuscar.setBounds(263, 41, 95, 21);
 			getContentPane().add(btnBuscar);
+			
+			btnConsulta = new JButton("Consultar todos los productos");
+			btnConsulta.setFont(new Font("Tahoma", Font.BOLD, 12));
+			btnConsulta.addActionListener(this);
+			btnConsulta.setBounds(99, 187, 260, 29);
+			getContentPane().add(btnConsulta);
+			
+			JSeparator separator = new JSeparator();
+			separator.setBounds(0, 162, 425, 14);
+			getContentPane().add(separator);
+			
+			JSeparator separator_1 = new JSeparator();
+			separator_1.setBounds(0, 73, 425, -11);
+			getContentPane().add(separator_1);
 			btnBuscar.addActionListener(this);
 		}
 
@@ -88,6 +107,9 @@ public class ConsultarProducto extends JDialog implements ActionListener {
 			}else {
 				JOptionPane.showMessageDialog(null,"El producto no existe");
 			}
+		}
+		if(e.getSource()==btnConsulta) {
+			miCoordinador.mostrarVentanalistarProductos();
 		}
 			
 	}

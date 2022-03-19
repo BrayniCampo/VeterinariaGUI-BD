@@ -2,34 +2,33 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Window;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JTextArea;
+
+import javax.swing.*;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import controlador.Coordinador;
 import vo.PersonaVo;
+import vo.ProductoVo;
 
-import javax.swing.*;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import java.awt.Font;
+public class EliminarPersonas extends JDialog implements ActionListener{
 
-public class ConsultarPersonaGUI extends JDialog implements ActionListener{
+	private final JPanel contentPanel = new JPanel();
 
-	private final JPanel contentPanel=new JPanel();
+	/**
+	 * Launch the application.
+	 */
+	private JPanel contentPane;
 	
-	Coordinador miCoordinador;
-
+	private JButton btnEliminar;
+	private Coordinador miCoordinador;
 	private JLabel lblDocumento;
 
 	private JTextField txtDocumento;
@@ -62,19 +61,22 @@ public class ConsultarPersonaGUI extends JDialog implements ActionListener{
 	private JButton btnBuscar;
 
 	private JButton btnListar;
+	private JLabel lblMsj;
 
-	public ConsultarPersonaGUI(VentanaPrincipal ventanaPrincipal, boolean modal) {
+	
+	
+public EliminarPersonas(VentanaPrincipal ventanaPrincipal, boolean modal) {
 		super(ventanaPrincipal,modal);
-		setSize( 589, 393);
+		setSize( 598, 376);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		iniciarComponentes();
-		setTitle("Gestión de Consultas");
+		setTitle("Gestión de elimar");
 		
 	}
 	
 	public void iniciarComponentes() {
-	
+
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -189,7 +191,10 @@ public class ConsultarPersonaGUI extends JDialog implements ActionListener{
 		separator.setBounds(24, 297, 538, 12);
 		contentPanel.add(separator);
 		
-
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(31, 303, 89, 23);
+		contentPanel.add(btnEliminar);
+		btnEliminar.addActionListener(this);
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBackground(Color.WHITE);
@@ -197,56 +202,58 @@ public class ConsultarPersonaGUI extends JDialog implements ActionListener{
 		btnBuscar.addActionListener(this);
 		contentPanel.add(btnBuscar);
 		
-		btnListar = new JButton("Consulta General");
-		btnListar.setBounds(24, 320, 161, 23);
-		contentPanel.add(btnListar);
+		JLabel lblNewLabel = new JLabel("ELIMINAR PERSONA");
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblNewLabel.setBounds(171, 23, 196, 21);
+		contentPanel.add(lblNewLabel);
 		
-		JLabel lblConsultar = new JLabel("CONSULTAR  PERSONAS");
-		lblConsultar.setForeground(Color.RED);
-		lblConsultar.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblConsultar.setBounds(160, 23, 267, 21);
-		contentPanel.add(lblConsultar);
-		btnListar.addActionListener(this);
+		lblMsj = new JLabel("");
+		lblMsj.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblMsj.setBounds(321, 307, 213, 14);
+		contentPanel.add(lblMsj);
 		
 		
+	}
 	
-	}	 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource()==btnBuscar) {
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnBuscar) {
+			Long idDocumento=Long.parseLong(txtDocumento.getText());
+			PersonaVo persona=miCoordinador.setConsultarPersona(idDocumento);
+			if(persona!=null) {
+				persona.setNacimiento(miCoordinador.consultarNacimiento(persona.getNacimiento().getIdNacimiento()));
+				txtNombre.setText(persona.getNombre());
+				txtProfesion.setText(persona.getProfesion());
+				txtTelefono.setText(persona.getTelefono());
+				txtTipo.setText(persona.getTipo()+"");
 				
-				Long idDocumento=Long.parseLong(txtDocumento.getText());
-				PersonaVo p=miCoordinador.setConsultarPersona(idDocumento);
+				txtCiudad.setText(persona.getNacimiento().getCiudadNacimiento());
+				txtDepartamento.setText(persona.getNacimiento().getDepartamentoNacimiento());
+				txtPais.setText(persona.getNacimiento().getPaisNacimiento());
+				txtDia.setText(persona.getNacimiento().getFechaNacimiento().getDayOfMonth()+"");
+				txtMes.setText(persona.getNacimiento().getFechaNacimiento().getMonthValue()+"");
+				txtAnnio.setText(persona.getNacimiento().getFechaNacimiento().getYear()+"");
 				
-				if (p!=null) {
-					
-					p.setNacimiento(miCoordinador.consultarNacimiento(p.getNacimiento().getIdNacimiento()));
-					System.out.println(p);				
-					txtNombre.setText(p.getNombre());
-					txtProfesion.setText(p.getProfesion());
-					txtTelefono.setText(p.getTelefono());
-					txtTipo.setText(p.getTipo()+"");
-					
-					txtCiudad.setText(p.getNacimiento().getCiudadNacimiento());
-					txtDepartamento.setText(p.getNacimiento().getDepartamentoNacimiento());
-					txtPais.setText(p.getNacimiento().getPaisNacimiento());
-					txtDia.setText(p.getNacimiento().getFechaNacimiento().getDayOfMonth()+"");
-					txtMes.setText(p.getNacimiento().getFechaNacimiento().getMonthValue()+"");
-					txtAnnio.setText(p.getNacimiento().getFechaNacimiento().getYear()+"");
-						
-				}else {
-					JOptionPane.showMessageDialog(null,"No se encuentra la persona, verifique el documento","ADVERTENCIA!!!",JOptionPane.WARNING_MESSAGE);
-				}			
+			}else {
+				JOptionPane.showMessageDialog(null,"El producto no existe");
 			}
-			if(e.getSource()==btnListar) {
-				miCoordinador.mostrarListarPersonas();
+		}
+		
+		if(e.getSource()==btnEliminar) {
+			Long idPersona=(Long.parseLong(txtDocumento.getText()));
+			String resp=miCoordinador.eliminarProducto(idPersona);
+					
+			if(resp.equals("ok")) {
+				lblMsj.setText("Se elimino Exitosamente");
+			}else {
+				lblMsj.setText("No se pudo eliminar");
 			}
-
+			
 		}
+	}
 
-
-		public void setCoordinador(Coordinador miCoordinador) {
-			// TODO Auto-generated method stub
-			this.miCoordinador=miCoordinador;
-		}
+	public void setCoordinador(Coordinador miCoordinador) {
+		this.miCoordinador=miCoordinador;
+		
+	}
 }
