@@ -224,6 +224,7 @@ public class RegistrarPersonasGui extends JDialog implements ActionListener{
 		}
 		if(e.getSource()==btnRegistrar) {
 			System.out.println("AAAA");
+			System.out.println("AAAA");
 			PersonaVo miPersona=new PersonaVo();
 			miPersona.setIdPersona(Long.parseLong(txtDocumento.getText()));
 			miPersona.setNombre(txtNombre.getText());
