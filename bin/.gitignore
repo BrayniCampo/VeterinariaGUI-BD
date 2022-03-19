@@ -1,3 +1,7 @@
-/modelo/
-/gui/
+/conector/
+/controlador/
 /dao/
+/gui/
+/images/
+/modelo/
+/vo/

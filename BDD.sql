@@ -30,6 +30,17 @@ CREATE TABLE mascotas(
 	persona_id int
 );
 
+CREATE TABLE producto(
+idProducto int(11) NOT NULL ,
+nombreProducto varchar(45) default null,
+precioProducto int(100),
+PRIMARY KEY(idProducto)
+);
+CREATE TABLE personaProducto(
+idProducto int(11) NOT NULL auto_increment,
+idPersonaP int(11) NOT NULL,
+primary Key (idProducto)
+);
 
 ALTER TABLE persona 
 ADD INDEX fk_persona_nacimiento (nacimiento_id ASC);
@@ -41,12 +52,11 @@ ADD CONSTRAINT fk_persona_nacimiento
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     
-    
 alter table mascotas
-add index fk_mascotas_persona (id_persona ASC);
+add index fk_mascotas_persona (persona_id ASC);
 alter table mascotas
 add constraint fk_mascotas_persona
-	foreign key (id_persona)
+	foreign key (persona_id)
 	references persona (id_persona)
 	on delete no action
 	on update no action;
